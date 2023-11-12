@@ -131,7 +131,7 @@ void copiarArquivoParaFrase(char nomeArquivo[], char *frase)
 	}
 	else
 	{
-		printf("Erro ao abrir o arquivo.");
+		printf("Erro ao abrir o arquivo\n");
 		strcpy(frase, "");
 	}
 }
@@ -139,10 +139,10 @@ void copiarArquivoParaFrase(char nomeArquivo[], char *frase)
 void gravarRegistrosEmBinario(ListaR *Lista)
 {
 	FILE *arquivoBinario = fopen("Arquivos/Registro.dat", "wb+");
-
+	ListaR *atual;
 	if (arquivoBinario != NULL)
 	{
-		ListaR *atual = Lista;
+		atual = Lista;
 		while (atual != NULL)
 		{
 			fwrite(atual, sizeof(ListaR), 1, arquivoBinario);
@@ -153,21 +153,21 @@ void gravarRegistrosEmBinario(ListaR *Lista)
 	}
 	else
 	{
-		printf("Erro ao abrir o arquivo bin�rio para escrita.\n");
+		printf("Erro ao abrir o arquivo bin\n");
 	}
 }
 
 void gravarCodigosNoArquivo(ListaR *ListaRegistro, char frase[])
 {
-	FILE *arquivo;
-	arquivo = fopen("Arquivos/codigo.txt", "w+");
+	FILE *arquivo = fopen("Arquivos/codigo.txt", "w+");
+	ListaR *aux;
 
 	if (arquivo != NULL)
 	{
 		char *palavra = strtok(frase, " ");
 		while (palavra != NULL)
 		{
-			ListaR *aux = buscaPorpalavra(&ListaRegistro, palavra);
+			aux = buscaPorpalavra(&ListaRegistro, palavra);
 			if (aux != NULL)
 			{
 				fprintf(arquivo, "%s", aux->codHuff);
@@ -178,7 +178,7 @@ void gravarCodigosNoArquivo(ListaR *ListaRegistro, char frase[])
 	}
 	else
 	{
-		printf("Erro ao abrir o arquivo para escrita.");
+		printf("Erro ao abrir o arquivo txt.");
 	}
 }
 
@@ -192,10 +192,16 @@ int main()
 	ListaA *ListaArvore;
 
 	int Tamanho, i, j;
-	char frase[500], codigoHuff[300], nomeArq[20];
-
-	strcpy(nomeArq, "frases/frase6.txt");
+	char frase[500], codigoHuff[900], nomeArq[20];
+	
+	// arquivos
+	strcpy(nomeArq, "frases/teste.txt");
+	// strcpy(nomeArq,"frases/frase1.txt");
 	// strcpy(nomeArq,"frases/frase2.txt");
+	// strcpy(nomeArq,"frases/frase3.txt");
+	// strcpy(nomeArq,"frases/frase4.txt");
+	// strcpy(nomeArq,"frases/frase5.txt");
+	// strcpy(nomeArq,"frases/frase6.txt");
 
 	copiarArquivoParaFrase(nomeArq, frase);
 
