@@ -57,6 +57,8 @@ void checarFreq(ListaR **ListaReg, char frase[], int *j)
 	}
 }
 
+
+
 void criaListaArv(ListaR *ListaReg, ListaA **ListaArv)
 {
 	while (ListaReg != NULL)
@@ -157,30 +159,48 @@ void gravarRegistrosEmBinario(ListaR *Lista)
 	}
 }
 
-void gravarCodigosNoArquivo(ListaR *ListaRegistro, char frase[])
-{
-	FILE *arquivo = fopen("Arquivos/codigo.txt", "w+");
-	ListaR *aux;
+void gravarCodigosNoArquivo(ListaR *ListaRegistro, char frase[]) {
+    FILE *arquivo = fopen("Arquivos/codigo.txt", "w+");
+    ListaR *aux;
+    int i = 0, k;
 
-	if (arquivo != NULL)
-	{
-		char *palavra = strtok(frase, " ");
-		while (palavra != NULL)
-		{
-			aux = buscaPorpalavra(&ListaRegistro, palavra);
-			if (aux != NULL)
-			{
-				fprintf(arquivo, "%s", aux->codHuff);
-			}
-			palavra = strtok(NULL, " ");
-		}
-		fclose(arquivo);
-	}
-	else
-	{
-		printf("Erro ao abrir o arquivo txt.");
-	}
+    if (arquivo != NULL) {
+        int len = strlen(frase);
+        int j = 0;
+        char palavra[100];
+
+        for (k = 0; k <= len; k++) {
+            if (isalpha(frase[k]) || isdigit(frase[k])) {
+                if (isalpha(frase[k])) {
+                    palavra[j] = toupper(frase[k]);
+                } else {
+                    palavra[j] = frase[k];
+                }
+                j++;
+            } else if (frase[k] == ' ' || frase[k] == '\0') {
+                palavra[j] = '\0';
+
+                if (j > 0) {
+                    aux = buscaPorpalavra(&ListaRegistro, palavra);
+                    if (aux != NULL) {
+                        fprintf(arquivo, "%s", aux->codHuff);
+                        //printf("%s, %s\n", aux->codHuff, aux->palavra);
+                        if (frase[k] == ' ') {
+                            fprintf(arquivo, "1");
+                        }
+                    }
+                    j = 0;
+                }
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo txt.");
+    }
 }
+
+
 
 int main()
 {
@@ -195,13 +215,13 @@ int main()
 	char frase[500], codigoHuff[900], nomeArq[20];
 	
 	// arquivos
-	strcpy(nomeArq, "frases/teste.txt");
-	// strcpy(nomeArq,"frases/frase1.txt");
+	//strcpy(nomeArq, "frases/teste.txt");
+	//strcpy(nomeArq,"frases/frase1.txt");
 	// strcpy(nomeArq,"frases/frase2.txt");
 	// strcpy(nomeArq,"frases/frase3.txt");
 	// strcpy(nomeArq,"frases/frase4.txt");
 	// strcpy(nomeArq,"frases/frase5.txt");
-	// strcpy(nomeArq,"frases/frase6.txt");
+	 strcpy(nomeArq,"frases/frase6.txt");
 
 	copiarArquivoParaFrase(nomeArq, frase);
 

@@ -5,40 +5,32 @@
 #include <windows.h>
 #include "tad.h"
 
-void LerCodigo(char *Codigo, FILE *arqTxt)
-{
+void LerCodigo(char *Codigo, FILE *arqTxt) {
     arqTxt = fopen("Arquivos/codigo.txt", "r");
-    if (arqTxt != NULL)
-    {
+    if (arqTxt != NULL) {
         fgets(Codigo, 300, arqTxt);
         fclose(arqTxt);
-    }
-    else
-    {
+    } else {
         printf("\nerro ao abrir arquivo\n");
     }
 }
 
-void gerarListaReg(ListaR **Lista, FILE *ArqBin)
-{
+
+void gerarListaReg(ListaR **Lista, FILE *ArqBin) {
     ListaR Reg;
     ArqBin = fopen("Arquivos/Registro.dat", "rb");
-	if(ArqBin!=NULL)
-	{
-		fseek(ArqBin, 0, 0);
-	    fread(&Reg, sizeof(ListaR), 1, ArqBin);
-	    while (!feof(ArqBin))
-	    {
-	        insereListaR(&*Lista, Reg.freq, Reg.simb, Reg.palavra, Reg.codHuff);
-	        fread(&Reg, sizeof(ListaR), 1, ArqBin);
-	    }
-	    fclose(ArqBin);
-	}
-	else
-	{
-		printf("\nerro ao abrir arquivo\n");
-	}
+
+    if (ArqBin != NULL) {
+        fseek(ArqBin, 0, 0);
+        while (fread(&Reg, sizeof(ListaR), 1, ArqBin)) {
+            insereListaR(&*Lista, Reg.freq, Reg.simb, Reg.palavra, Reg.codHuff);
+        }
+        fclose(ArqBin);
+    } else {
+        printf("\nerro ao abrir arquivo\n");
+    }
 }
+
 
 void gerarListaArv(ListaR *ListaReg, ListaA **ListaArv)
 {
@@ -93,7 +85,7 @@ int main()
 	system("title arvore de huffman");
 	system("cls");
 	
-    char frase[500], codigo[901];
+    char frase[900], codigo[901];
     FILE *arqBin = NULL;
     FILE *arqTxt = NULL;
 

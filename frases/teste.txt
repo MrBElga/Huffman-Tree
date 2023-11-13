@@ -1,1 +1,1 @@
-frase basica para o teste sem nenhuma pontuacao , apenas essa virgula e uma esclamacao ! ou seja eh uma frase basica e tem um ponto final .
+frase basica para o teste sem nenhuma pontuacao , apenas essa virgula e uma esclamacao ! ou seja eh uma frase basica e tem um ponto final.
