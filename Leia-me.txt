@@ -1,0 +1,1 @@
+O codigo funciona 100%, porem ao buscar do arquivo ele tras erros na acentuação por algum motivo, não consegui mudar isso, ao rodar com a linha 236 comentada e a 237 descomentada, a acentuação funciona normalmente.

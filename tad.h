@@ -140,7 +140,7 @@ void buscaPorSimbolo(ListaR **Lista, int simb, char frase[], int *j)
     int i = 0;
     ListaR *aux;
     aux = *Lista;
-
+    
     while (aux != NULL && aux->simb != simb)
         aux = aux->prox;
     if (aux != NULL)
@@ -254,14 +254,19 @@ void exibeListaR(ListaR *Lista)
 
     while (Lista != NULL)
     {
-        if (strcmp(" ", Lista->palavra) != 0)
+    	if(strcmp(" ",Lista->palavra)!=0)
+        {
             printf("| %-15s| %-15d| %-15d| %-15s|\n", Lista->palavra, Lista->freq, Lista->simb, Lista->codHuff);
+        }
         else
-            printf("| [espaco]       | %-15d| %-15d| %-15s|\n", Lista->freq, Lista->simb, Lista->codHuff);
-
-        Lista = Lista->prox;
+        {
+            printf("| [espaco]       | %-15d| %-15d| %-15s|\n",  Lista->freq, Lista->simb, Lista->codHuff);
+        }
+        	
+    
+		Lista = Lista->prox;
     }
 
     printf("=====================================================================\n");
-    getchar();
+    getch();
 }
